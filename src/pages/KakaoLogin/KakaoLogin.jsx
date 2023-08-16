@@ -10,9 +10,9 @@ function KakaoLogin() {
     if (data.user) {
       setCookie('refreshToken ', data.ownJwtRefreshToken);
       sessionStorage.setItem('nickname', data.nickName);
-      location.replace('/lobby');
+      window.location.replace('/lobby');
     } else {
-      location.replace('/signin');
+      window.location.replace('/signin');
     }
   };
 

@@ -53,7 +53,7 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
     setUserNickname(getNicknameTag(streamManager));
   }, [streamManager]);
 
-  const useSkillAndPost = async (myRole, nickname) => {
+  const handleSkillAndPost = async (myRole, nickname) => {
     if (myRole === 'POLICE') {
       const { data } = await gameAPI.useSkill(roomId, nickname);
       showSwal(data.message, '닫기');
@@ -79,7 +79,7 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
     }
   };
 
-  const useVoteAndPost = async (nickname) => {
+  const handleVoteAndPost = async (nickname) => {
     showSwal(`${nickname}을 투표하셨습니다.`, '닫기');
     const { data } = await gameAPI.voteGame(roomId, nickname);
   };
@@ -101,8 +101,8 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
     }).then((result) => {
       if (result.isConfirmed) {
         setImageOn(useNickname);
-        if (isVoteTime) useVoteAndPost(useNickname);
-        if (isSkillTime) useSkillAndPost(myRole, useNickname);
+        if (isVoteTime) handleVoteAndPost(useNickname);
+        if (isSkillTime) handleSkillAndPost(myRole, useNickname);
       }
     });
   };

@@ -20,7 +20,7 @@ function UserInfo({ nickname }) {
       sessionStorage.removeItem('nickname');
       removeCookie('refreshToken');
       removeCookie('accessToken');
-      location.reload('/');
+      window.location.reload('/');
     }
   };
 

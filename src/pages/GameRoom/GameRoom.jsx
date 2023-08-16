@@ -75,7 +75,7 @@ function GameRoom({ sessionId, openvidu, myRole, setInGame }) {
         showSwal(convertMessageToText(roomData.messages), '확인');
         setIsSkillTime(false);
         setImageOn('');
-        location.replace('/lobby');
+        window.location.replace('/lobby');
       }
 
       if (checkDeath(roomData.death, nickname)) {

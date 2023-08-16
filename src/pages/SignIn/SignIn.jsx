@@ -49,7 +49,7 @@ function SignIn() {
 
       if (status === 200) {
         sessionStorage.setItem('nickname', data);
-        location.replace('/lobby');
+        window.location.replace('/lobby');
       } else if (status === 400) {
         alert('중복된 닉네임입니다.');
       }
