@@ -93,7 +93,7 @@ const useOpenVidu = () => {
       return data.token;
     } catch {
       alert('입장실패!');
-      location.replace('/lobby');
+      window.location.replace('/lobby');
       return;
     }
   };
@@ -101,9 +101,9 @@ const useOpenVidu = () => {
   const sendMessage = (inputMessage) => {
     session
       .signal({
-        data: inputMessage.message, // Any string (optional)
-        to: [], // Array of Connection objects (optional. Broadcast to everyone if empty)
-        type: 'my-chat', // The type of message (optional)
+        data: inputMessage.message,
+        to: [],
+        type: 'my-chat',
       })
       .then(() => {
         console.log('Message successfully sent');
