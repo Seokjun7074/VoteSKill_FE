@@ -10,18 +10,19 @@ import GraveComponent from 'pages/GameRoom/GraveComponent/GraveComponent';
 import { checkDeath } from 'utils/checkDeath';
 import Swal from 'sweetalert2';
 
-function CamScreen({ publisher, subscribers, myRole, roomId, imageOn, setImageOn }) {
+function CamScreen({ publisher, subscribers, myRole, roomId, imageOn, setImageOn, deadPlayers }) {
   return (
     <S.VideoWrapper>
-      {publisher !== undefined ? (
+      {publisher && (
         <UserVideoComponent
           streamManager={publisher}
           setImageOn={setImageOn}
           imageOn={imageOn}
           myRole={myRole}
           roomId={roomId}
+          deadPlayers={deadPlayers}
         />
-      ) : null}
+      )}
       {subscribers.length > 0 &&
         subscribers.map((sub) => (
           <UserVideoComponent
@@ -31,20 +32,21 @@ function CamScreen({ publisher, subscribers, myRole, roomId, imageOn, setImageOn
             imageOn={imageOn}
             myRole={myRole}
             roomId={roomId}
+            deadPlayers={deadPlayers}
           />
         ))}
     </S.VideoWrapper>
   );
 }
 
-function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId }) {
+function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId, deadPlayers }) {
   const [isVoteTime, setIsVoteTime] = useRecoilState(isVoteTimeState);
   const [isSkillTime, setIsSkillTime] = useRecoilState(isSkillTimeState);
   const videoRef = useRef();
   const NORMAL_SKILL_ROLE = ['DOCTOR', 'MAFIA'];
   const NONE_SKILL_ROLE = ['SOLDIER', 'POLITICIAN'];
   const ONECE_SKILL_ROLE = ['PRIEST', 'REPORTER'];
-  const deadPlayers = useRecoilValue(deadPlayerState);
+  // const deadPlayers = useRecoilValue(deadPlayerState);
   const [skill, setSkill] = useRecoilState(skillState(myRole));
   const [useNickname, setUserNickname] = useState('');
   const myDeath = useRecoilValue(checkDeathSelector);
@@ -91,10 +93,11 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
       showSwal('사망자는 게임에 참여할 수 없습니다.', '확인');
       return;
     }
+    console.log('deadPlayers', deadPlayers);
 
     Swal.fire({
       title: `${useNickname}님을 선택하겠습니까?`,
-      text: '다시 되돌릴 수 없습니다. 신중히 선택세요.',
+      text: '다시 되돌릴 수 없습니다. 신중히 선택하세요.',
       showCancelButton: true,
       confirmButtonColor: '#6367CE',
       cancelButtonColor: '#970000',
@@ -120,13 +123,10 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
     <>
       {streamManager !== undefined ? (
         <S.UserInfoWrapper>
-          <GraveComponent useNickname={useNickname} />
           <VoteAndSkill useNickname={useNickname} imageOn={imageOn} myRole={myRole} />
-          {checkDeath(deadPlayers, useNickname) ? null : (
-            <S.VideoContainer onClick={handleClickKillVote}>
-              <S.CustomScreen autoPlay={true} ref={videoRef} />
-            </S.VideoContainer>
-          )}
+          <S.VideoContainer onClick={handleClickKillVote}>
+            <S.CustomScreen autoPlay={true} ref={videoRef} />
+          </S.VideoContainer>
           <span>{useNickname}</span>
         </S.UserInfoWrapper>
       ) : null}

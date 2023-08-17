@@ -13,6 +13,10 @@ function VoteAndSkill({ useNickname, imageOn, myRole }) {
 
   const deathMember = checkDeath(deadPlayers, useNickname);
 
+  const NORMAL_SKILL_ROLE = ['DOCTOR', 'MAFIA', 'POLICE', 'PRIEST', 'REPORTER'];
+
+  const checkSkillRole = () => NORMAL_SKILL_ROLE.includes(myRole);
+
   if ((isVoteTime || isSkillTime) && !deathMember && checkVote()) {
     let skillImageSrc = '';
     if (isSkillTime && myRole) {
@@ -22,7 +26,7 @@ function VoteAndSkill({ useNickname, imageOn, myRole }) {
     return (
       <>
         {isVoteTime && <KillVote src={process.env.PUBLIC_URL + '/image/game/killvote.png'} />}
-        {isSkillTime && myRole && <SkillImage src={process.env.PUBLIC_URL + skillImageSrc} />}
+        {isSkillTime && myRole && checkSkillRole() && <SkillImage src={process.env.PUBLIC_URL + skillImageSrc} />}
       </>
     );
   }
