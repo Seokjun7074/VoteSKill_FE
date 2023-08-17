@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from './CamScreen.Style';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { isSkillTimeState, isVoteTimeState, skillState } from 'recoil/atoms/gameState';
+import { checkDeathSelector, isSkillTimeState, isVoteTimeState, skillState } from 'recoil/atoms/gameState';
 import gameAPI from 'apis/gameAPI';
 import showSwal from 'utils/showSwal';
 import VoteAndSkill from 'pages/GameRoom/VoteAndSkill/VoteAndSkill';
 import { deadPlayerState } from 'recoil/atoms/gameState';
-import GraveComponent from 'components/gravecomponent/GraveComponent';
+import GraveComponent from 'pages/GameRoom/GraveComponent/GraveComponent';
 import { checkDeath } from 'utils/checkDeath';
 import Swal from 'sweetalert2';
 
@@ -47,6 +47,7 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
   const deadPlayers = useRecoilValue(deadPlayerState);
   const [skill, setSkill] = useRecoilState(skillState(myRole));
   const [useNickname, setUserNickname] = useState('');
+  const myDeath = useRecoilValue(checkDeathSelector);
 
   useEffect(() => {
     const getNicknameTag = (sub) => JSON.parse(sub.stream.connection.data).clientData;
@@ -85,17 +86,19 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
   };
 
   const handleClickKillVote = () => {
-    if (!isVoteTime && !isSkillTime) return;
-    if (imageOn !== '') return;
+    if ((!isVoteTime && !isSkillTime) || imageOn !== '') return;
+    if (myDeath) {
+      showSwal('사망자는 게임에 참여할 수 없습니다.', '확인');
+      return;
+    }
 
     Swal.fire({
       title: `${useNickname}님을 선택하겠습니까?`,
-      text: '다시 되돌릴 수 없습니다. 신중하세요.',
-      icon: 'warning',
+      text: '다시 되돌릴 수 없습니다. 신중히 선택세요.',
       showCancelButton: true,
       confirmButtonColor: '#6367CE',
       cancelButtonColor: '#970000',
-      confirmButtonText: '승인',
+      confirmButtonText: '확인',
       cancelButtonText: '취소',
       reverseButtons: true,
     }).then((result) => {
@@ -117,7 +120,7 @@ function UserVideoComponent({ streamManager, setImageOn, imageOn, myRole, roomId
     <>
       {streamManager !== undefined ? (
         <S.UserInfoWrapper>
-          <GraveComponent useNickname={useNickname}></GraveComponent>
+          <GraveComponent useNickname={useNickname} />
           <VoteAndSkill useNickname={useNickname} imageOn={imageOn} myRole={myRole} />
           {checkDeath(deadPlayers, useNickname) ? null : (
             <S.VideoContainer onClick={handleClickKillVote}>

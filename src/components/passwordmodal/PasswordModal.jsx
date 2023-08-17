@@ -1,7 +1,8 @@
 // import Modal from 'components/modal/Modal';
 import * as S from 'components/passwordmodal/PasswordModal.Style';
-import { useState } from 'react';
+import useInput from 'hooks/useInput';
 import { useNavigate } from 'react-router';
+import showSwal from 'utils/showSwal';
 
 function PasswordModal({ item }) {
   return (
@@ -12,9 +13,9 @@ function PasswordModal({ item }) {
 }
 
 function PasswordInput({ item }) {
-  const [password, setPassword] = useState('');
+  const [password, setPassword, passwordHandler] = useInput('');
   const navigate = useNavigate();
-  // 방 비번 입력
+
   const enterRoom = (sessionId) => {
     navigate(`/play/${sessionId}`, {
       state: {
@@ -23,26 +24,21 @@ function PasswordInput({ item }) {
     });
   };
 
-  const savePassword = (item) => {
-    setPassword(item.target.value);
-  };
-
   const checkPassword = () => {
     if (item.password === password) {
       enterRoom(item.name);
     } else {
-      alert('비밀번호가 틀렸습니다.');
+      showSwal('비밀번호가 틀렸습니다.', '확인');
       setPassword('');
     }
   };
 
   return (
-    <div>
+    <S.RoomMakeBackground>
       <S.PasswordText>비밀번호</S.PasswordText>
-      <S.SubmitInput type="password" onChange={savePassword} />
-      <br />
+      <S.SubmitInput type="password" onChange={passwordHandler} />
       <S.SubmitButton onClick={checkPassword}>입력</S.SubmitButton>
-    </div>
+    </S.RoomMakeBackground>
   );
 }
 

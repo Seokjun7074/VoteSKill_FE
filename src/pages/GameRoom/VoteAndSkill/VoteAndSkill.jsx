@@ -18,6 +18,7 @@ function VoteAndSkill({ useNickname, imageOn, myRole }) {
     if (isSkillTime && myRole) {
       skillImageSrc = `/image/game/skill_${myRole.toLowerCase()}.svg`;
     }
+
     return (
       <>
         {isVoteTime && <KillVote src={process.env.PUBLIC_URL + '/image/game/killvote.png'} />}

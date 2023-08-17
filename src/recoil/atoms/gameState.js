@@ -1,4 +1,4 @@
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 
 export const skillState = atomFamily({
   key: 'skillState',
@@ -23,4 +23,12 @@ export const isSkillTimeState = atom({
 export const deadPlayerState = atom({
   key: 'deadPlayerState',
   default: [],
+});
+
+export const checkDeathSelector = selector({
+  key: 'checkDeathSelector',
+  get: ({ get }) => {
+    const myNickname = sessionStorage.getItem('nickname');
+    return get(deadPlayerState).includes(myNickname);
+  },
 });

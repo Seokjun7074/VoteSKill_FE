@@ -49,7 +49,7 @@ function RoomList() {
               {item.name}
               <S.People style={{ textAlign: 'center' }}>
                 {new Set(item.people).size}/6{' '}
-                {item.password && <S.Logo src={process.env.PUBLIC_URL + '/lock_logo.png'} />}
+                {item.password && <S.Logo src={process.env.PUBLIC_URL + '/image/lock_logo.png'} />}
               </S.People>
             </S.RoomContainer>
           ))}

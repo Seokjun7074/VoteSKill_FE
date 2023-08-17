@@ -1,6 +1,4 @@
 import * as S from 'components/jobassign/JobAssign.Style';
-import useLayoutChange from 'hooks/useLayoutChange';
-import useModal from 'hooks/useModal';
 import React, { useState, useEffect } from 'react';
 
 function JobAssign({ data }) {

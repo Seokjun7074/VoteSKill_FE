@@ -2,7 +2,6 @@ import KakaoLogin from 'pages/KakaoLogin/KakaoLogin';
 import Lobby from 'pages/Lobby/Lobby';
 import Main from 'pages/Main/Main';
 import SignIn from 'pages/SignIn/SignIn';
-import GameTestPage from 'pages/GameTestPage/GameTestPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Game from 'pages/Game/Game';
 
