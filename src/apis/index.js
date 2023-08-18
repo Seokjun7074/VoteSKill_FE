@@ -6,7 +6,6 @@ export const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${getCookie('accessToken')}`,
-    withCredentials: true,
   },
 });
 export const loginInstance = axios.create({
@@ -14,6 +13,5 @@ export const loginInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${getCookie('accessToken')}`,
-    withCredentials: true,
   },
 });
