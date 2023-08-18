@@ -6,6 +6,11 @@ import { CookiesProvider } from 'react-cookie';
 function App() {
   const queryClient = new QueryClient();
 
+  if (process.env.NODE_ENV === 'production') {
+    console.log = () => {};
+    console.warn = () => {};
+  }
+
   return (
     <div className="App">
       <CookiesProvider>
