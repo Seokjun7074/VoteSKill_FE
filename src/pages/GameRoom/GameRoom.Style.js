@@ -5,24 +5,9 @@ export const ScreenWrapper = styled.div`
   width: 100%;
   height: calc(100% - 70px);
 `;
-
-export const TimeHeader = styled.div`
-  text-align: center;
-  font-size: 30px;
-  font-weight: 600;
-  color: ${(props) => (props.layout.Day ? 'black' : 'white')};
-`;
-
-export const TimeIcon = styled.img`
-  width: 30px;
-  height: 30px;
-  display: inline;
-`;
-
-export const LeftTime = styled.div`
-  display: inline;
-`;
-
-export const DayText = styled.div`
-  margin-top: 10px;
+export const RoleSpan = styled.div`
+  font-size: 18px;
+  padding: 5px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.color.gray};
 `;

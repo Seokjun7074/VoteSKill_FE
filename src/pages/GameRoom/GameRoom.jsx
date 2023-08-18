@@ -98,6 +98,7 @@ function GameRoom({ sessionId, openvidu, myRole, setInGame }) {
   return (
     <S.ScreenWrapper>
       <Timer />
+      <S.RoleSpan>당신의 직업은{myRole.role}입니다.</S.RoleSpan>
       {openvidu.session && (
         <CamScreen
           publisher={openvidu.publisher}
