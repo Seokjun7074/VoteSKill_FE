@@ -8,23 +8,23 @@ const color = {
   blue: '#6367CE',
 };
 
-const night = {
-  start: '#977A5C',
-  end: '#190a05',
-};
 // const night = {
-//   start: '#870000',
+//   start: '#977A5C',
 //   end: '#190a05',
 // };
-
-const day = {
-  end: '#977A5C',
-  start: '#fff',
+const night = {
+  start: '#870000',
+  end: '#190a05',
 };
+
 // const day = {
-//   end: '#ffd5bd',
-//   start: '#a3b9ff',
+//   end: '#977A5C',
+//   start: '#fff',
 // };
+const day = {
+  end: '#ffd5bd',
+  start: '#a3b9ff',
+};
 
 const borderRadius = {
   s: '10px',
