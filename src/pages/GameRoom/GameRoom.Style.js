@@ -6,6 +6,9 @@ export const ScreenWrapper = styled.div`
   height: calc(100% - 70px);
 `;
 export const RoleSpan = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 18px;
   padding: 5px;
   font-weight: bold;
